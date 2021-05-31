@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "contentful": "^8.3.7",
-    "core-js": "^3.9.1",
+    "core-js": "^3.13.1",
     "dotenv": "^9.0.2",
     "nuxt": "^2.15.3"
   },
