@@ -1,13 +1,17 @@
-export default {
+const pkg = require('./package')
+const { getConfigForKeys } = require('./lib/config.js')
+const ctfConfig = getConfigForKeys([
+  'CTF_SPACE_ID',
+  'CTF_CDA_ACCESS_TOKEN',
+  'CTF_BLOG_POST_TYPE_ID'
+])
+
+const { createClient } = require('./client/plugins/contentful.js')
+const cdaClient = createClient(ctfConfig)
+
+module.exports = {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
-
-  publicRuntimeConfig: {
-    baseURL: process.env.BASE_URL || 'http://locahost:3000',
-    CTF_BLOG_POST_TYPE_ID: process.env.CTF_BLOG_POST_TYPE_ID,
-    CTF_SPACE_ID: process.env.CTF_SPACE_ID,
-    CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN
-  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'nuxt-blog',
@@ -23,14 +27,30 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  srcDir: './client/',
+  loading: { color: '#3B8070' },
+
+  plugins: [
+    { src: '~plugins/contentful', ssr: false}
+  ],
+
+  generate: {
+    routes() {
+      return cdaClient
+        .getEntries(ctfConfig.CTF_BLOG_POST_TYPE_ID)
+        .then(entries => {
+          return [...entries.items.map(entry => '/blog/${entry.fielda.slug}')]
+        })
+    }
+  },
+  env: {
+    CTF_SPACE_ID: ctfConfig.CTF_SPACE_ID,
+    CTF_CDA_ACCESS_TOKEN: ctfConfig.CTF_CDA_ACCESS_TOKEN,
+    CTF_BLOG_POST_TYPE_ID: ctfConfig.CTF_BLOG_POST_TYPE_ID
+  },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-  ],
-
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    { src: '~plugins/contentful' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -48,5 +68,15 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+     extend (config, { isDev, isClient }) {
+      if (isDev && isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    }
   }
 }
