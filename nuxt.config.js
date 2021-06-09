@@ -34,12 +34,14 @@ module.exports = {
   ],
 
   generate: {
-    routes() {
-      return cdaClient
-        .getEntries(ctfConfig.CTF_BLOG_POST_TYPE_ID)
-        .then(entries => {
-          return [...entries.items.map(entry => '/blog/${entry.fielda.slug}')]
-        })
+    routes () {
+      return cdaClient.getEntries({
+        'content_type': ctfConfig.CTF_BLOG_POST_TYPE_ID
+      }).then(entries => {
+        return [
+          ...entries.items.map(entry => `/blog/${entry.fields.slug}`)
+        ]
+      })
     }
   },
   env: {
@@ -58,7 +60,6 @@ module.exports = {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -67,15 +68,5 @@ module.exports = {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-     extend (config, { isDev, isClient }) {
-      if (isDev && isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-    }
   }
 }
