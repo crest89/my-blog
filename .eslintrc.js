@@ -16,13 +16,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-  'indent': ['error', 2],
-  'linebreak-style': ['error', 'unix'],
-  'quotes': ['error', 'single'],
-  'semi': ['error', 'always'],
-  'no-console': ['warn'],
-  'no-unused-vars': ['warn'],
-  'vue/max-attributes-per-line': 'off',
-  'vue/singleline-html-element-content-newline': 'off'
+    // 追加する
+    'space-before-function-paren': 0
   }
 }
