@@ -4,7 +4,6 @@
     <p class="slug_date">
       {{ (new Date(post.fields.create_at)).toLocaleDateString() }}
     </p>
-    <img class="slug_image" v-bind:src="post.fields.headerimage.fields.file.url"/>
     <vue-markdown>{{post.fields.body}}</vue-markdown>
   </section>
 </template>

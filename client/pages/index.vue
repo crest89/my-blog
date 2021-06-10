@@ -5,8 +5,7 @@
         v-bind:key="post.fields.slug"
         :title="post.fields.title"
         :slug="post.fields.slug"
-        :headerimage="post.fields.headerimage"
-        :create_at="post.fields.create_at"
+        :create_at="post.fields.createAt"
       />
     </section>
 </template>
@@ -24,7 +23,7 @@ export default {
   async asyncData ({ env, params }) {
     return await client.getEntries({
       'content_type': env.CTF_BLOG_POST_TYPE_ID,
-      order: '-fields.create_at',
+      order: '-fields.creatAt'
     }).then(entries => {
       return {
         posts: entries.items
