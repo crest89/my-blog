@@ -2,10 +2,10 @@
     <section class="index">
       <card
         v-for="post in posts"
-        v-bind:key="post.fields.slug"
+         v-bind:key="post.fields.slug"
         :title="post.fields.title"
         :slug="post.fields.slug"
-        :create_at="post.fields.createAt"
+        :createAt="post.fields.createAt"
       />
     </section>
 </template>
@@ -23,7 +23,7 @@ export default {
   async asyncData ({ env, params }) {
     return await client.getEntries({
       'content_type': env.CTF_BLOG_POST_TYPE_ID,
-      order: '-fields.creatAt'
+      order: '-fields.createAt'
     }).then(entries => {
       return {
         posts: entries.items

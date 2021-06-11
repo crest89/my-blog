@@ -2,7 +2,7 @@
   <section class="slug">
     <h1 class="slug_title">{{ post.fields.title }}</h1>
     <p class="slug_date">
-      {{ (new Date(post.fields.create_at)).toLocaleDateString() }}
+      {{ (new Date(post.fields.createAt)).toLocaleDateString() }}
     </p>
     <vue-markdown>{{post.fields.body}}</vue-markdown>
   </section>
@@ -18,11 +18,11 @@ export default {
   components: {
     VueMarkdown
   },
-  async asyncData ({ env, params }) {
-    return await client.getEntries({
+  asyncData ({ env, params }) {
+    return client.getEntries({
       'content_type': env.CTF_BLOG_POST_TYPE_ID,
       'fields.slug': params.slug,
-      order: '-sys.createdAt'
+      order: '-sys.updatedAt'
     }).then(entries => {
       return {
         post: entries.items[0],
