@@ -12,3 +12,15 @@ export default {
   props: ['title', 'slug', 'createAt']
 }
 </script>
+
+<style scoped>
+  .card{
+    width: 100%;
+    height: 30vh;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 40px;
+    padding-bottom: 10px;
+  }
+</style>

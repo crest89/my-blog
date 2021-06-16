@@ -4,7 +4,7 @@
     <p class="slug_date">
       {{ (new Date(post.fields.createAt)).toLocaleDateString() }}
     </p>
-    <vue-markdown>{{post.fields.body}}</vue-markdown>
+    <vue-markdown class="blog">{{post.fields.body}}</vue-markdown>
   </section>
 </template>
 
@@ -32,3 +32,27 @@ export default {
   }
 }
 </script>
+
+<style  scoped>
+  .slug {
+    width: 80%;
+    height: 100vh;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 300%;
+    margin: 10px;
+  }
+  p{
+    display: flex;
+    justify-content: flex-end;
+  }
+  .blog {
+    padding-top: 5vh;
+    width: 80%;
+    margin: 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 200%;
+    -webkit-font-smoothing: antialiased;
+  }
+</style>

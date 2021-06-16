@@ -33,3 +33,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+  .index{
+    width: 80%;
+    margin: 0 auto;
+  }
+</style>
