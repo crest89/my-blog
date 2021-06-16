@@ -17,6 +17,7 @@
     "vue-markdown": "^2.2.4"
   },
   "devDependencies": {
+    "@nuxtjs/dotenv": "^1.4.1",
     "prettier": "1.12.1"
   }
 }

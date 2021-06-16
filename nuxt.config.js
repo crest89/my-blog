@@ -1,13 +1,4 @@
-const pkg = require('./package')
-const { getConfigForKeys } = require('./lib/config.js')
-const ctfConfig = getConfigForKeys([
-  'CTF_SPACE_ID',
-  'CTF_CDA_ACCESS_TOKEN',
-  'CTF_BLOG_POST_TYPE_ID'
-])
-
 const { createClient } = require('./client/plugins/contentful.js')
-const cdaClient = createClient(ctfConfig)
 
 module.exports = {
   // Target: https://go.nuxtjs.dev/config-target
@@ -35,8 +26,8 @@ module.exports = {
 
   generate: {
     routes () {
-      return cdaClient.getEntries({
-        'content_type': ctfConfig.CTF_BLOG_POST_TYPE_ID
+      return createClient({env}).getEntries({
+        'content_type': env.CTF_BLOG_POST_TYPE_ID
       }).then(entries => {
         return [
           ...entries.items.map(entry => `/blog/${entry.fields.slug}`)
@@ -45,9 +36,9 @@ module.exports = {
     }
   },
   env: {
-    CTF_SPACE_ID: ctfConfig.CTF_SPACE_ID,
-    CTF_CDA_ACCESS_TOKEN: ctfConfig.CTF_CDA_ACCESS_TOKEN,
-    CTF_BLOG_POST_TYPE_ID: ctfConfig.CTF_BLOG_POST_TYPE_ID
+    CTF_SPACE_ID: process.env.CTF_SPACE_ID,
+    CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN,
+    CTF_BLOG_POST_TYPE_ID: process.env.CTF_BLOG_POST_TYPE_ID
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
