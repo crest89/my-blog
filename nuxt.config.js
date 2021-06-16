@@ -43,6 +43,8 @@ module.exports = {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    {src: '~/assets/css/destyle.css'},
+    {src: '~/assets/css/pokemonfont'}
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
