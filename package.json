@@ -19,6 +19,6 @@
   "devDependencies": {
     "@nuxtjs/dotenv": "^1.4.1",
     "pokemon-font": "^1.8.1",
-    "prettier": "1.12.1"
+    "prettier": "2.8.4"
   }
 }
